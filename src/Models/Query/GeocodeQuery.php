@@ -26,11 +26,6 @@ class GeocodeQuery implements Query
     private $limit;
 
     /**
-     * @var int
-     */
-    private $proxy;
-
-    /**
      * @var array
      */
     private $data = [];
@@ -55,19 +50,6 @@ class GeocodeQuery implements Query
     public static function create(string $text): self
     {
         return new self($text);
-    }
-
-    /**
-     * @param string $text
-     *
-     * @return GeocodeQuery
-     */
-    public function withProxy(string $text): self
-    {
-        $new = clone $this;
-        $new->proxy = $text;
-
-        return $new;
     }
 
     /**

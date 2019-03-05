@@ -24,7 +24,7 @@ final class DaData implements Provider
     /**
      * @var mixed
      */
-    protected $http_client;
+    protected $proxy;
 
     /**
      * DaData constructor.
@@ -32,10 +32,11 @@ final class DaData implements Provider
      * @param $token
      * @param $url
      */
-    public function __construct($token, $url)
+    public function __construct($token, $url, $proxy = null)
     {
         $this->token = $token;
         $this->url = $url;
+        $this->proxy = $proxy;
     }
 
     /**
@@ -43,7 +44,7 @@ final class DaData implements Provider
      */
     public function getName(): string
     {
-        return 'dadata';
+        return 'DaData.ru';
     }
 
     /**
@@ -70,19 +71,25 @@ final class DaData implements Provider
             'json' => [
                 'query' => $query->getText(),
                 'count' => $query->getLimit()
-            ]
+            ],
+            'proxy' => $this->proxy
         ];
 
-        $response = (new Client())->post($this->url, $with_data);
-        $data = json_decode((string)$response->getBody());
+        try {
+            $response = (new Client())->post($this->url, $with_data);
+            $data = json_decode((string)$response->getBody(), true);
+        } catch (\Exception $e) {
+            throw InvalidServerResponse::create($query);
+        }
 
         if (empty($data['suggestions']) || \count($data['suggestions']) === 0) {
-            return collect(new Address($this->getName()));
+            return collect([]);
         }
 
         $result = [];
         foreach ($data['suggestions'] as $address) {
-            $builder = new Address($this->getName());
+            $builder = new Address();
+            $builder->setProvidedBy($this->getName());
             $builder->setLatitude($address['data']['geo_lat']);
             $builder->setLontitude($address['data']['geo_lon']);
             $builder->setAddress($address['unrestricted_value']);
