@@ -14,7 +14,7 @@ class GeocodeServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $configPath = __DIR__ . '/../../config/geocode.php';
+        $configPath = __DIR__ . '/../config/geocode.php';
 
         $this->publishes(
             [ $configPath => base_path('config/geocode.php') ],
