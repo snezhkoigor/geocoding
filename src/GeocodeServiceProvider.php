@@ -17,7 +17,7 @@ class GeocodeServiceProvider extends ServiceProvider
         $configPath = __DIR__ . '/../config/geocode.php';
 
         $this->publishes(
-            [ $configPath => base_path('config/geocode.php') ],
+            [ $configPath => $this->configPath('geocode.php') ],
             'config'
         );
 
@@ -34,5 +34,20 @@ class GeocodeServiceProvider extends ServiceProvider
         });
 
         $this->app->bind('geocode', Aggregator::class);
+    }
+
+    protected function configPath(string $path = '') : string
+    {
+        if (function_exists('config_path')) {
+            return config_path($path);
+        }
+
+        $pathParts = [
+            app()->basePath(),
+            'config',
+            trim($path, '/'),
+        ];
+
+        return implode('/', $pathParts);
     }
 }
