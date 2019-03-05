@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Geocode\Laravel\Providers;
 
-use Geocode\Laravel\Model\Query\GeocodeQuery;
+use Geocode\Laravel\Models\Query\GeocodeQuery;
 use Illuminate\Support\Collection;
 
 interface Provider

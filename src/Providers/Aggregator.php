@@ -2,7 +2,7 @@
 
 namespace Geocode\Laravel\Providers;
 
-use Geocode\Laravel\Model\Query\GeocodeQuery;
+use Geocode\Laravel\Models\Query\GeocodeQuery;
 use Illuminate\Support\Collection;
 
 class Aggregator implements Provider
@@ -47,7 +47,7 @@ class Aggregator implements Provider
         $providers = $providers->map(function ($arguments, $provider) {
             $reflection = new \ReflectionClass($provider);
 
-            return $reflection->newInstance($arguments);
+            return $reflection->newInstanceArgs($arguments);
         });
 
         return $providers->toArray();

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Geocode\Laravel\Model\Query;
+namespace Geocode\Laravel\Models\Query;
 
 use Geocode\Laravel\Exceptions\InvalidArgument;
 
