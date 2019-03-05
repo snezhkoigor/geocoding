@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Geocode;
+namespace Geocode\Laravel;
 
-use Geocode\Facades\Geocode;
-use Geocode\Providers\Aggregator;
+use Geocode\Laravel\Facades\Geocode;
+use Geocode\Laravel\Providers\Aggregator;
 use Illuminate\Support\ServiceProvider;
 
 class GeocodeServiceProvider extends ServiceProvider

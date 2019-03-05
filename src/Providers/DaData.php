@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Geocode\Providers;
+namespace Geocode\Laravel\Providers;
 
-use Geocode\Model\Query\GeocodeQuery;
+use Geocode\Laravel\Model\Query\GeocodeQuery;
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Geocode\Exceptions;
+namespace Geocode\Laravel\Exceptions;
 
 use Http\Client\Exception;
 

@@ -16,13 +16,18 @@
     },
     "autoload": {
         "psr-4": {
-            "Geocode\\": "src/"
+            "Geocode\\Laravel\\": "src/"
         }
+    },
+    "prefer-stable": true,
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Geocode\\GeocodeServiceProvider"
+                "Geocode\\Laravel\\GeocodeServiceProvider"
             ]
         }
     }

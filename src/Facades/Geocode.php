@@ -1,6 +1,6 @@
 <?php
 
-namespace Geocode\Facades;
+namespace Geocode\Laravel\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

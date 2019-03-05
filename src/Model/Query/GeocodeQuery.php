@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Geocode\Model\Query;
+namespace Geocode\Laravel\Model\Query;
 
-use Geocode\Exceptions\InvalidArgument;
+use Geocode\Laravel\Exceptions\InvalidArgument;
 
 class GeocodeQuery implements Query
 {

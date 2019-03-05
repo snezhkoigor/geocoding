@@ -1,8 +1,8 @@
 <?php
 
-namespace Geocode\Providers;
+namespace Geocode\Laravel\Providers;
 
-use Geocode\Model\Query\GeocodeQuery;
+use Geocode\Laravel\Model\Query\GeocodeQuery;
 use Illuminate\Support\Collection;
 
 class Aggregator implements Provider

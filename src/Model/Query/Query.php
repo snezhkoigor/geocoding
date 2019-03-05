@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Geocode\Model\Query;
+namespace Geocode\Laravel\Model\Query;
 
 interface Query
 {
