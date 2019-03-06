@@ -96,6 +96,7 @@ final class DaData implements Provider
         $result = [];
         foreach ($data['suggestions'] as $address) {
             $builder = new Address();
+
             $builder->setProvidedBy($this->getName());
             $builder->setLatitude($address['data']['geo_lat']);
             $builder->setLongitude($address['data']['geo_lon']);
