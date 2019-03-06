@@ -123,7 +123,7 @@ final class DaData implements Provider
                 break;
 
             case GeocodeQuery::GROUP_BY_CITY:
-                $result .= '/city';
+                $result .= '/address';
                 break;
         }
 
