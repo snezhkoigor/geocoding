@@ -46,6 +46,9 @@ return [
 ];
 ```
 
+### Supported Providers
+1. DaData
+
 ### Customization
 If you would like to make changes to the default configuration, publish and
  edit the configuration file:
