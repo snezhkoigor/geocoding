@@ -26,7 +26,7 @@ class Aggregator implements Provider
                     return $result;
                 }
             } catch (\Throwable $e) {
-
+                throw InvalidServerResponse::create('Provider "' . $provider->getName() . '" could not geocode address: "' . $query->getText() . '".');
             }
         }
     }
@@ -45,7 +45,7 @@ class Aggregator implements Provider
                     return $result;
                 }
             } catch (\Throwable $e) {
-
+                throw InvalidServerResponse::create('Provider "' . $provider->getName() . '" could not geocode address: "' . $query->getText() . '".');
             }
         }
     }
