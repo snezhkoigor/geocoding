@@ -27,6 +27,7 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
+    "version": "v1.0.0",
     "extra": {
         "laravel": {
             "providers": [
