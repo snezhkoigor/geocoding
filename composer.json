@@ -1,5 +1,5 @@
 {
-    "name": "snezhkois/geocode",
+    "name": "snezhkoigor/geocode",
     "description": "A development package for all providers",
     "keywords": ["geocode", "laravel"],
     "type": "package",
@@ -10,7 +10,6 @@
             "email": "i.s.sergeevich@yandex.ru"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": "^7.1",
         "guzzlehttp/guzzle": "~6.0",
@@ -21,11 +20,6 @@
         "psr-4": {
             "Geocode\\Laravel\\": "src/"
         }
-    },
-    "prefer-stable": true,
-    "config": {
-        "preferred-install": "dist",
-        "sort-packages": true
     },
     "extra": {
         "laravel": {
