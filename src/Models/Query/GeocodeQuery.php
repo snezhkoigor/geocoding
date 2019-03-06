@@ -34,7 +34,7 @@ class GeocodeQuery implements Query
     /**
      * @var int
      */
-    private $limit;
+    private $limit = 10;
 
     /**
      * @var array
