@@ -61,7 +61,7 @@ The service provider initializes the `geocode` service, accessible via the
 ### Geocoding Addresses
 #### Get Collection of Addresses
 ```php
-app('geocode')->geocode('Los Angeles, CA')->get();
+app('geocode')->geocode('Санкт-Петербург');
 ```
 
 #### Suggest Collection of Addresses
