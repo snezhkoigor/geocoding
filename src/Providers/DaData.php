@@ -9,6 +9,7 @@ use Geocode\Laravel\Resources\Address;
 use Geocode\Laravel\Resources\Resource;
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
+use Geocode\Laravel\Exceptions\InvalidServerResponse;
 
 final class DaData implements Provider
 {

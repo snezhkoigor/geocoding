@@ -4,6 +4,7 @@ namespace Geocode\Laravel\Providers;
 
 use Geocode\Laravel\Models\Query\GeocodeQuery;
 use Illuminate\Support\Collection;
+use Geocode\Laravel\Exceptions\InvalidServerResponse;
 
 class Aggregator implements Provider
 {
