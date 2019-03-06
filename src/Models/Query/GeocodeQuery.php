@@ -51,7 +51,6 @@ class GeocodeQuery implements Query
         }
 
         $this->text = $text;
-        $this->withGroupBy(self::GROUP_BY_ADDRESS);
     }
 
     /**
@@ -61,7 +60,10 @@ class GeocodeQuery implements Query
      */
     public static function create(string $text): self
     {
-        return new self($text);
+        $new = new self($text);
+        $new->withGroupBy(self::GROUP_BY_ADDRESS);
+
+        return $new;
     }
 
     /**
