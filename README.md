@@ -2,16 +2,16 @@
 
 ## Requirements
 - PHP >= 7.1.3
-- Laravel >= 5.0
+- Laravel >= 5.6
 
 ## Installation
 1. Install the package via composer:
   ```sh
-  composer require snezhkois/geocode
+  composer require snezhkoigor/geocode
   ```
 2. **If you are running Laravel 5.5 (the package will be auto-discovered), skip
   this step.** Find the `providers` array key in `config/app.php` and register
-  the **Geocoder Service Provider**:
+  the **Geocode Service Provider**:
   ```php
   // 'providers' => [
       Geocode\Laravel\GeocodeServiceProvider::class,
