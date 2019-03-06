@@ -59,15 +59,12 @@ The service provider initializes the `geocode` service, accessible via the
  facade `Geocode::...` or the application helper `app('geocode')->...`.
  
 ### Geocoding Addresses
-#### Get Collection of Addresses
+#### Geocode of Address
 ```php
 app('geocode')->geocode('Санкт-Петербург');
 ```
 
-#### Suggest Collection of Addresses
-```php
-app('geocode')->geocode((\Geocode\Laravel\Models\Query\GeocodeQuery::create('перво')));
-```
+#### Suggest and get Collection of Addresses
 ```php
 app('geocode')->suggest((\Geocode\Laravel\Models\Query\GeocodeQuery::create('перво')));
 ```
