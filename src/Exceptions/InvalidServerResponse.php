@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Geocode\Laravel\Exceptions;
 
+use Geocode\Laravel\Exception\Exception;
+
 final class InvalidServerResponse extends \RuntimeException implements Exception
 {
     /**
