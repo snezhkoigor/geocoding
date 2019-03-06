@@ -86,7 +86,7 @@ final class DaData implements Provider
             $response = (new Client())->post($url, $this->buildRequestData($query));
             $data = json_decode((string)$response->getBody(), true);
         } catch (\Exception $e) {
-            throw InvalidServerResponse::create($query);
+            throw InvalidServerResponse::create('Provider "' . $this->getName() . '" could not geocode address: "' . $query->getText() . '".');
         }
 
         if (empty($data['suggestions']) || \count($data['suggestions']) === 0) {
