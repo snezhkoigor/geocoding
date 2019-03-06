@@ -51,7 +51,7 @@ return [
 If you would like to make changes to the default configuration, publish and
  edit the configuration file:
 ```sh
-php artisan vendor:publish --provider="Geocoder\Laravel\Providers\GeocoderService" --tag="config"
+php artisan vendor:publish --provider="Geocode\Laravel\GeocodeServiceProvider" --tag="config"
 ```
 
 ## Usage
