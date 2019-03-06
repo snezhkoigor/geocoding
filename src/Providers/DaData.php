@@ -61,7 +61,9 @@ final class DaData implements Provider
      */
     public function geocode(GeocodeQuery $query): Collection
     {
-        return $this->executeQuery($this->buildFinalUrl($query, self::GEOCODE_URL), $query->withLimit(1));
+        $query = $query->withLimit(1);
+
+        return $this->executeQuery($this->buildFinalUrl($query, self::GEOCODE_URL), $query);
     }
 
     /**
