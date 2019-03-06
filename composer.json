@@ -10,7 +10,7 @@
             "email": "i.s.sergeevich@yandex.ru"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "php": "^7.1",
         "guzzlehttp/guzzle": "~6.0",
