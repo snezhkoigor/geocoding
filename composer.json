@@ -1,5 +1,5 @@
 {
-    "name": "snezhkois/geocode",
+    "name": "snezhkoigor/geocode",
     "description": "A development package for all providers",
     "keywords": ["geocode", "laravel"],
     "type": "package",
