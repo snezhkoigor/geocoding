@@ -1,8 +1,8 @@
 {
     "name": "snezhkois/geocode",
     "description": "A development package for all providers",
-    "keywords": ["geocoder", "geocoding", "abstraction", "geoip"],
-    "type": "library",
+    "keywords": ["geocode", "laravel"],
+    "type": "package",
     "license": "MIT",
     "authors": [
         {
@@ -12,7 +12,10 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": "^7.0"
+        "php": "^7.1",
+        "guzzlehttp/guzzle": "~6.0",
+        "illuminate/support": "5.0 - 5.8",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

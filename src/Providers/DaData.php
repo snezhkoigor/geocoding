@@ -6,6 +6,7 @@ namespace Geocode\Laravel\Providers;
 
 use Geocode\Laravel\Models\Query\GeocodeQuery;
 use Geocode\Laravel\Resources\Address;
+use Geocode\Laravel\Resources\Resource;
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 
@@ -19,23 +20,27 @@ final class DaData implements Provider
     /**
      * @var mixed
      */
-    protected $url;
+    protected $proxy;
 
     /**
-     * @var mixed
+     * Базовый url для автозаполнения
      */
-    protected $proxy;
+    const SUGGEST_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest';
+
+    /**
+     * Базовый url для геокодирования
+     */
+    const GEOCODE_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest';
 
     /**
      * DaData constructor.
      *
      * @param $token
-     * @param $url
+     * @param $proxy
      */
-    public function __construct($token, $url, $proxy = null)
+    public function __construct($token, $proxy = null)
     {
         $this->token = $token;
-        $this->url = $url;
         $this->proxy = $proxy;
     }
 
@@ -48,35 +53,36 @@ final class DaData implements Provider
     }
 
     /**
+     * Specify
+     *
      * @param GeocodeQuery $query
      * @return Collection
      */
-    public function geocodeQuery(GeocodeQuery $query): Collection
+    public function geocode(GeocodeQuery $query): Collection
     {
-        return $this->executeQuery($query);
+        $query->withLimit(1);
+
+        return $this->executeQuery($this->buildFinalUrl($query, self::GEOCODE_URL), $query);
     }
 
     /**
      * @param GeocodeQuery $query
      * @return Collection
      */
-    private function executeQuery(GeocodeQuery $query): Collection
+    public function suggest(GeocodeQuery $query): Collection
     {
-        $with_data = [
-            'headers' => [
-                'Authorization' => 'Token '.$this->token,
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json'
-            ],
-            'json' => [
-                'query' => $query->getText(),
-                'count' => $query->getLimit()
-            ],
-            'proxy' => $this->proxy
-        ];
+        return $this->executeQuery($this->buildFinalUrl($query, self::SUGGEST_URL), $query);
+    }
 
+    /**
+     * @param GeocodeQuery $query
+     * @param string $url
+     * @return Collection
+     */
+    private function executeQuery(string $url, GeocodeQuery $query): Collection
+    {
         try {
-            $response = (new Client())->post($this->url, $with_data);
+            $response = (new Client())->post($url, $this->buildRequestData($query));
             $data = json_decode((string)$response->getBody(), true);
         } catch (\Exception $e) {
             throw InvalidServerResponse::create($query);
@@ -91,12 +97,65 @@ final class DaData implements Provider
             $builder = new Address();
             $builder->setProvidedBy($this->getName());
             $builder->setLatitude($address['data']['geo_lat']);
-            $builder->setLontitude($address['data']['geo_lon']);
+            $builder->setLongitude($address['data']['geo_lon']);
             $builder->setAddress($address['unrestricted_value']);
 
             $result[] = $builder;
         }
 
         return collect($result);
+    }
+
+    /**
+     * @param GeocodeQuery $query
+     * @param $base_url
+     * @return string
+     */
+    private function buildFinalUrl(GeocodeQuery $query, string $base_url)
+    {
+        $result = $base_url;
+
+        switch ($query->getGroupBy()) {
+            case GeocodeQuery::GROUP_BY_ADDRESS:
+                $result .= '/address';
+                break;
+
+            case GeocodeQuery::GROUP_BY_CITY:
+                $result .= '/city';
+                break;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param GeocodeQuery $query
+     * @return array
+     */
+    private function buildRequestData(GeocodeQuery $query): array
+    {
+        $result = [
+            'headers' => [
+                'Authorization' => 'Token '.$this->token,
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json'
+            ],
+            'json' => [
+                'query' => $query->getText(),
+                'count' => $query->getLimit()
+            ],
+            'proxy' => $this->proxy
+        ];
+
+        if ($query->getGroupBy() === GeocodeQuery::GROUP_BY_CITY) {
+            $result['from_bound'] = [
+                'value' => 'city'
+            ];
+            $result['to_bound'] = [
+                'value' => 'city'
+            ];
+        }
+
+        return $result;
     }
 }

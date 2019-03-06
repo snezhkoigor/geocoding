@@ -12,11 +12,34 @@ class Aggregator implements Provider
      */
     private $providers = [];
 
-    public function geocodeQuery(GeocodeQuery $query): Collection
+    /**
+     * @param GeocodeQuery $query
+     * @return Collection
+     */
+    public function geocode(GeocodeQuery $query): Collection
     {
         foreach ($this->providers as $provider) {
             try {
-                $result = $provider->geocodeQuery($query);
+                $result = $provider->geocode($query);
+
+                if (!$result->isEmpty()) {
+                    return $result;
+                }
+            } catch (\Throwable $e) {
+
+            }
+        }
+    }
+
+    /**
+     * @param GeocodeQuery $query
+     * @return Collection
+     */
+    public function suggest(GeocodeQuery $query): Collection
+    {
+        foreach ($this->providers as $provider) {
+            try {
+                $result = $provider->suggest($query);
 
                 if (!$result->isEmpty()) {
                     return $result;
@@ -35,6 +58,10 @@ class Aggregator implements Provider
         return 'aggregator';
     }
 
+    /**
+     * @param Collection $providers
+     * @return Aggregator
+     */
     public function registerProvidersFromConfig(Collection $providers): self
     {
         $this->providers = $this->getProvidersFromConfiguration($providers);
@@ -42,6 +69,10 @@ class Aggregator implements Provider
         return $this;
     }
 
+    /**
+     * @param Collection $providers
+     * @return array
+     */
     protected function getProvidersFromConfiguration(Collection $providers) : array
     {
         $providers = $providers->map(function ($arguments, $provider) {

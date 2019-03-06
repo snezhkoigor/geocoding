@@ -14,6 +14,13 @@ interface Query
     public function withLocale(string $locale);
 
     /**
+     * @param string $group_by
+     *
+     * @return Query
+     */
+    public function withGroupBy(string $group_by);
+
+    /**
      * @param int $limit
      *
      * @return Query
@@ -39,7 +46,7 @@ interface Query
     public function getLimit(): int;
 
     /**
-     * @param string     $name
+     * @param string $name
      * @param mixed|null $default
      *
      * @return mixed

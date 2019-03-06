@@ -8,6 +8,17 @@ use Geocode\Laravel\Exceptions\InvalidArgument;
 
 class GeocodeQuery implements Query
 {
+    const GROUP_BY_ADDRESS = 'address';
+
+    const GROUP_BY_CITY = 'city';
+
+    /**
+     * The address or text that should be geocoded.
+     *
+     * @var string
+     */
+    private $group_by;
+
     /**
      * The address or text that should be geocoded.
      *
@@ -40,6 +51,7 @@ class GeocodeQuery implements Query
         }
 
         $this->text = $text;
+        $this->withGroupBy(self::GROUP_BY_ADDRESS);
     }
 
     /**
@@ -50,6 +62,19 @@ class GeocodeQuery implements Query
     public static function create(string $text): self
     {
         return new self($text);
+    }
+
+    /**
+     * @param string $text
+     *
+     * @return GeocodeQuery
+     */
+    public function withGroupBy(string $text): self
+    {
+        $new = clone $this;
+        $new->group_by = $text;
+
+        return $new;
     }
 
     /**
@@ -103,6 +128,14 @@ class GeocodeQuery implements Query
         $new->data[$name] = $value;
 
         return $new;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGroupBy(): string
+    {
+        return $this->group_by;
     }
 
     /**
@@ -163,6 +196,7 @@ class GeocodeQuery implements Query
             'text' => $this->getText(),
             'locale' => $this->getLocale(),
             'limit' => $this->getLimit(),
+            'group_by' => $this->getGroupBy(),
             'data' => $this->getAllData(),
         ]));
     }

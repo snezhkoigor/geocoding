@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Geocode\Laravel\Exceptions;
 
-use Http\Client\Exception;
-
 final class InvalidServerResponse extends \RuntimeException implements Exception
 {
     /**
@@ -16,7 +14,7 @@ final class InvalidServerResponse extends \RuntimeException implements Exception
      */
     public static function create(string $query, int $code = 0): self
     {
-        return new self(sprintf('The geocoder server returned an invalid response (%d) for query "%s". We could not parse it.', $code, $query));
+        return new self(sprintf('The geocode server returned an invalid response (%d) for query "%s". We could not parse it.', $code, $query));
     }
 
     /**
@@ -26,6 +24,6 @@ final class InvalidServerResponse extends \RuntimeException implements Exception
      */
     public static function emptyResponse(string $query): self
     {
-        return new self(sprintf('The geocoder server returned an empty response for query "%s".', $query));
+        return new self(sprintf('The geocode server returned an empty response for query "%s".', $query));
     }
 }

@@ -16,7 +16,16 @@ interface Provider
      *
      * @throws \Exception
      */
-    public function geocodeQuery(GeocodeQuery $query): Collection;
+    public function geocode(GeocodeQuery $query): Collection;
+
+    /**
+     * @param GeocodeQuery $query
+     *
+     * @return Collection
+     *
+     * @throws \Exception
+     */
+    public function suggest(GeocodeQuery $query): Collection;
 
     /**
      * Returns the provider's name.

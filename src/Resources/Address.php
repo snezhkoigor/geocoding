@@ -14,7 +14,7 @@ final class Address
     /**
      * @var
      */
-    private $lontitude;
+    private $longitude;
 
     /**
      * @var
@@ -30,12 +30,12 @@ final class Address
      * @param $provided_by
      * @param null $address
      * @param null $latitude
-     * @param null $lontitude
+     * @param null $longitude
      */
-    public function __constructor($provided_by, $address = null, $latitude = null, $lontitude = null)
+    public function __constructor($provided_by, $address = null, $latitude = null, $longitude = null)
     {
         $this->latitude = $latitude;
-        $this->lontitude = $lontitude;
+        $this->longitude = $longitude;
         $this->address = $address;
         $this->provided_by = $provided_by;
     }
@@ -67,8 +67,8 @@ final class Address
     /**
      * @param $text
      */
-    public function setLontitude($text)
+    public function setLongitude($text)
     {
-        $this->lontitude = (float) $text;
+        $this->longitude = (float) $text;
     }
 }
