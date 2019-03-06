@@ -40,8 +40,7 @@ return [
     'providers' => [
         DaData::class => [
             'token' => env('DADATA_TOKEN', ''),
-            'proxy' => env('DADATA_PROXY_IP', null),
-            'url' => env('DADATA_URL', null),
+            'proxy' => env('DADATA_PROXY_IP', null)
         ]
     ]
 ];
