@@ -165,7 +165,7 @@ final class DaData implements Provider
                 'value' => 'city'
             ];
             $result['to_bound'] = [
-                'value' => 'city'
+                'value' => 'settlement'
             ];
         }
 
