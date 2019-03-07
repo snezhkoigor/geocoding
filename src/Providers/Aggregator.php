@@ -3,6 +3,7 @@
 namespace Geocode\Laravel\Providers;
 
 use Geocode\Laravel\Models\Query\GeocodeQuery;
+use Geocode\Laravel\Resources\Address;
 use Illuminate\Support\Collection;
 use Geocode\Laravel\Exceptions\InvalidServerResponse;
 
@@ -15,15 +16,15 @@ class Aggregator implements Provider
 
     /**
      * @param GeocodeQuery $query
-     * @return Collection
+     * @return Address|null
      */
-    public function geocode(GeocodeQuery $query): Collection
+    public function geocode(GeocodeQuery $query): ?Address
     {
         foreach ($this->providers as $provider) {
             try {
                 $result = $provider->geocode($query);
 
-                if (!$result->isEmpty()) {
+                if ($result instanceof Address) {
                     return $result;
                 }
             } catch (\Throwable $e) {
@@ -31,7 +32,7 @@ class Aggregator implements Provider
             }
         }
 
-        return collect([]);
+        return null;
     }
 
     /**
