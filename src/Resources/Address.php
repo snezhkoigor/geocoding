@@ -57,6 +57,14 @@ final class Address
     }
 
     /**
+     * @retrun string|null
+     */
+    public function getAddress(): ?string
+    {
+        $this->address;
+    }
+
+    /**
      * @param $text
      */
     public function setLatitude($text)

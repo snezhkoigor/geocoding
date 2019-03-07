@@ -64,7 +64,11 @@ final class DaData implements Provider
         $query = $query->withLimit(1);
         $data = $this->executeQuery($this->buildFinalUrl($query, self::GEOCODE_URL), $query);
 
-        return $data->count() && $data->first()->getLatitude() ? $data : collect([]);
+        if ($data->count() && $data->first()->getLatitude()) {
+            return $data;
+        }
+
+        return collect([]);
     }
 
     /**
@@ -75,7 +79,13 @@ final class DaData implements Provider
     {
         $data = $this->executeQuery($this->buildFinalUrl($query, self::SUGGEST_URL), $query);
 
-        return $data->count() ? $data->pluck('address') : collect([]);
+        if ($data->count()) {
+            return $data->reduce(function ($item) {
+                return $item->getAddress();
+            });
+        }
+
+        return collect([]);
     }
 
     /**
