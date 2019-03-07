@@ -65,10 +65,26 @@ final class Address
     }
 
     /**
+     * @retrun float|null
+     */
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    /**
      * @param $text
      */
     public function setLongitude($text)
     {
         $this->longitude = (float) $text;
+    }
+
+    /**
+     * @retrun float|null
+     */
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
     }
 }
