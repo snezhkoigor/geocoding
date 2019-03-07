@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Geocode\Laravel\Providers;
 
 use Geocode\Laravel\Models\Query\GeocodeQuery;
+use Geocode\Laravel\Resources\Address;
 use Illuminate\Support\Collection;
 
 interface Provider
@@ -12,11 +13,11 @@ interface Provider
     /**
      * @param GeocodeQuery $query
      *
-     * @return Collection
+     * @return Address
      *
      * @throws \Exception
      */
-    public function geocode(GeocodeQuery $query): Collection;
+    public function geocode(GeocodeQuery $query): ?Address;
 
     /**
      * @param GeocodeQuery $query
