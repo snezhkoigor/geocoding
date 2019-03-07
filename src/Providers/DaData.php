@@ -161,11 +161,11 @@ final class DaData implements Provider
         ];
 
         if ($query->getGroupBy() === GeocodeQuery::GROUP_BY_CITY) {
-            $result['from_bound'] = [
+            $result['json']['from_bound'] = [
                 'value' => 'city'
             ];
-            $result['to_bound'] = [
-                'value' => 'settlement'
+            $result['json']['to_bound'] = [
+                'value' => 'city'
             ];
         }
 
