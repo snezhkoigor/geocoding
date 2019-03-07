@@ -68,7 +68,7 @@ final class DaData implements Provider
             return $data;
         }
 
-        return collect([]);
+        return $data;
     }
 
     /**
@@ -85,7 +85,7 @@ final class DaData implements Provider
             });
         }
 
-        return collect([]);
+        return $data;
     }
 
     /**
