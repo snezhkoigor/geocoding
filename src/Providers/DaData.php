@@ -80,7 +80,7 @@ final class DaData implements Provider
         $data = $this->executeQuery($this->buildFinalUrl($query, self::SUGGEST_URL), $query);
 
         if ($data->count()) {
-            return $data->reduce(function ($item) {
+            return $data->map(function ($item, $key) {
                 return $item->getAddress();
             });
         }

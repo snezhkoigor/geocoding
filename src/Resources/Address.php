@@ -61,7 +61,7 @@ final class Address
      */
     public function getAddress(): ?string
     {
-        $this->address;
+        return $this->address;
     }
 
     /**
