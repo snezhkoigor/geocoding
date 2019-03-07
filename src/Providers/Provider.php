@@ -13,7 +13,7 @@ interface Provider
     /**
      * @param GeocodeQuery $query
      *
-     * @return Address
+     * @return Address|null
      *
      * @throws \Exception
      */

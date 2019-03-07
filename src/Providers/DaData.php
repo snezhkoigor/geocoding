@@ -54,10 +54,8 @@ final class DaData implements Provider
     }
 
     /**
-     * Specify
-     *
      * @param GeocodeQuery $query
-     * @return Address
+     * @return Address|null
      */
     public function geocode(GeocodeQuery $query): ?Address
     {
@@ -83,7 +81,7 @@ final class DaData implements Provider
             return collect([]);
         }
 
-        return $data->map(function ($item, $key) {
+        return $data->map(function ($item) {
             return $item->getAddress();
         });
     }
