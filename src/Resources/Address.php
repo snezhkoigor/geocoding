@@ -95,4 +95,17 @@ final class Address
     {
         return $this->longitude;
     }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'provided_by' => $this->provided_by,
+            'latitude' => (float) $this->latitude,
+            'longitude' => (float) $this->longitude,
+            'address' => $this->address
+        ];
+    }
 }
