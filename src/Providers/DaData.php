@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Geocode\Laravel\Providers;
 
 use Geocode\Laravel\Models\Query\GeocodeQuery;
+use Geocode\Laravel\Models\Query\Query;
 use Geocode\Laravel\Models\Query\SuggestQuery;
+use Geocode\Laravel\Models\QueryGroup;
 use Geocode\Laravel\Resources\Address;
 use Geocode\Laravel\Resources\Resource;
 use GuzzleHttp\Client;
@@ -87,11 +89,11 @@ final class DaData implements Provider
     }
 
     /**
-     * @param GeocodeQuery $query
+     * @param Query $query
      * @param string $url
      * @return Collection
      */
-    private function executeQuery(string $url, GeocodeQuery $query): Collection
+    private function executeQuery(string $url, Query $query): Collection
     {
         try {
             $response = (new Client())->post($url, $this->buildRequestData($query));
@@ -120,20 +122,20 @@ final class DaData implements Provider
     }
 
     /**
-     * @param GeocodeQuery $query
+     * @param Query $query
      * @param $base_url
      * @return string
      */
-    private function buildFinalUrl(GeocodeQuery $query, string $base_url)
+    private function buildFinalUrl(Query $query, string $base_url)
     {
         $result = $base_url;
 
         switch ($query->getGroupBy()) {
-            case GeocodeQuery::GROUP_BY_ADDRESS:
+            case QueryGroup::GROUP_BY_ADDRESS:
                 $result .= '/address';
                 break;
 
-            case GeocodeQuery::GROUP_BY_CITY:
+            case QueryGroup::GROUP_BY_CITY:
                 $result .= '/address';
                 break;
         }
@@ -142,10 +144,10 @@ final class DaData implements Provider
     }
 
     /**
-     * @param GeocodeQuery $query
+     * @param Query $query
      * @return array
      */
-    private function buildRequestData(GeocodeQuery $query): array
+    private function buildRequestData(Query $query): array
     {
         $result = [
             'headers' => [
@@ -160,7 +162,7 @@ final class DaData implements Provider
             'proxy' => $this->proxy
         ];
 
-        if ($query->getGroupBy() === GeocodeQuery::GROUP_BY_CITY) {
+        if ($query->getGroupBy() === QueryGroup::GROUP_BY_CITY) {
             $result['json']['from_bound'] = [
                 'value' => 'city'
             ];

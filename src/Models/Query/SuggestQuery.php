@@ -5,13 +5,10 @@ declare(strict_types=1);
 namespace Geocode\Laravel\Models\Query;
 
 use Geocode\Laravel\Exceptions\InvalidArgument;
+use Geocode\Laravel\Models\QueryGroup;
 
 class SuggestQuery implements Query
 {
-    const GROUP_BY_ADDRESS = 'address';
-
-    const GROUP_BY_CITY = 'city';
-
     /**
      * The address or text that should be suggested.
      *
@@ -47,11 +44,11 @@ class SuggestQuery implements Query
     private function __construct(string $text)
     {
         if (empty($text)) {
-            throw new InvalidArgument('Suggest query cannot be empty');
+            throw new InvalidArgument('Geocode query cannot be empty');
         }
 
         $this->text = $text;
-        $this->group_by = self::GROUP_BY_ADDRESS;
+        $this->group_by = QueryGroup::GROUP_BY_ADDRESS;
     }
 
     /**
@@ -78,6 +75,19 @@ class SuggestQuery implements Query
     }
 
     /**
+     * @param int $limit
+     *
+     * @return SuggestQuery
+     */
+    public function withLimit(int $limit): self
+    {
+        $new = clone $this;
+        $new->limit = 1;
+
+        return $this;
+    }
+
+    /**
      * @param string $text
      *
      * @return SuggestQuery
@@ -99,19 +109,6 @@ class SuggestQuery implements Query
     {
         $new = clone $this;
         $new->locale = $locale;
-
-        return $new;
-    }
-
-    /**
-     * @param int $limit
-     *
-     * @return SuggestQuery
-     */
-    public function withLimit(int $limit): self
-    {
-        $new = clone $this;
-        $new->limit = $limit;
 
         return $new;
     }

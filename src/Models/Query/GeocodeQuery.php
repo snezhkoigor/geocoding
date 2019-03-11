@@ -5,13 +5,10 @@ declare(strict_types=1);
 namespace Geocode\Laravel\Models\Query;
 
 use Geocode\Laravel\Exceptions\InvalidArgument;
+use Geocode\Laravel\Models\QueryGroup;
 
 class GeocodeQuery implements Query
 {
-    const GROUP_BY_ADDRESS = 'address';
-
-    const GROUP_BY_CITY = 'city';
-
     /**
      * The address or text that should be geocoded.
      *
@@ -51,7 +48,7 @@ class GeocodeQuery implements Query
         }
 
         $this->text = $text;
-        $this->group_by = self::GROUP_BY_ADDRESS;
+        $this->group_by = QueryGroup::GROUP_BY_ADDRESS;
     }
 
     /**
@@ -75,6 +72,19 @@ class GeocodeQuery implements Query
         $new->group_by = $text;
 
         return $new;
+    }
+
+    /**
+     * @param int $limit
+     *
+     * @return GeocodeQuery
+     */
+    public function withLimit(int $limit): self
+    {
+        $new = clone $this;
+        $new->limit = 1;
+
+        return $this;
     }
 
     /**
