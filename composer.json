@@ -1,5 +1,5 @@
 {
-    "name": "snezhkoigor/geocode",
+    "name": "snezhkoigor/geocoding",
     "description": "A development package for all providers",
     "keywords": ["geocode", "laravel"],
     "type": "package",
@@ -19,14 +19,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Geocode\\Laravel\\": "src/"
+            "Geocoding\\Laravel\\": "src/"
         }
     },
     "prefer-stable": true,
     "extra": {
         "laravel": {
             "providers": [
-                "Geocode\\Laravel\\GeocodeServiceProvider"
+                "Geocoding\\Laravel\\GeocodingServiceProvider"
             ]
         }
     }

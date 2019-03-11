@@ -8,7 +8,7 @@ use Geocoding\Laravel\Facades\Geocoding;
 use Geocoding\Laravel\Providers\Aggregator;
 use Illuminate\Support\ServiceProvider;
 
-class GeocodeServiceProvider extends ServiceProvider
+class GeocodingServiceProvider extends ServiceProvider
 {
     protected $defer = false;
 
