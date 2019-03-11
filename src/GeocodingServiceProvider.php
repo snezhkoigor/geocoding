@@ -17,23 +17,23 @@ class GeocodingServiceProvider extends ServiceProvider
         $configPath = __DIR__ . '/../config/geocoding.php';
 
         $this->publishes(
-            [ $configPath => $this->configPath('geocode.php') ],
+            [ $configPath => $this->configPath('geocoding.php') ],
             'config'
         );
 
-        $this->mergeConfigFrom($configPath, 'geocode');
+        $this->mergeConfigFrom($configPath, 'geocoding');
     }
 
     public function register()
     {
-        $this->app->alias('Geocode', Geocoding::class);
+        $this->app->alias('Geocoding', Geocoding::class);
 
         $this->app->singleton(Aggregator::class, function () {
             return (new Aggregator())
-                ->registerProvidersFromConfig(collect(config('geocode.providers')));
+                ->registerProvidersFromConfig(collect(config('geocoding.providers')));
         });
 
-        $this->app->bind('geocode', Aggregator::class);
+        $this->app->bind('geocoding', Aggregator::class);
     }
 
     protected function configPath(string $path = '') : string
