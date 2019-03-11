@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Geocode\Laravel\Providers;
 
 use Geocode\Laravel\Models\Query\GeocodeQuery;
+use Geocode\Laravel\Models\Query\SuggestQuery;
 use Geocode\Laravel\Resources\Address;
 use Geocode\Laravel\Resources\Resource;
 use GuzzleHttp\Client;
@@ -59,7 +60,6 @@ final class DaData implements Provider
      */
     public function geocode(GeocodeQuery $query): ?Address
     {
-        $query = $query->withLimit(1);
         $data = $this->executeQuery($this->buildFinalUrl($query, self::GEOCODE_URL), $query);
 
         if ($data->count() && $data->first()->getLatitude()) {
@@ -70,10 +70,10 @@ final class DaData implements Provider
     }
 
     /**
-     * @param GeocodeQuery $query
+     * @param SuggestQuery $query
      * @return Collection
      */
-    public function suggest(GeocodeQuery $query): Collection
+    public function suggest(SuggestQuery $query): Collection
     {
         $data = $this->executeQuery($this->buildFinalUrl($query, self::SUGGEST_URL), $query);
 

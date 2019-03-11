@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Geocode\Laravel\Providers;
 
 use Geocode\Laravel\Models\Query\GeocodeQuery;
+use Geocode\Laravel\Models\Query\SuggestQuery;
 use Geocode\Laravel\Resources\Address;
 use Illuminate\Support\Collection;
 
@@ -20,13 +21,13 @@ interface Provider
     public function geocode(GeocodeQuery $query): ?Address;
 
     /**
-     * @param GeocodeQuery $query
+     * @param SuggestQuery $query
      *
      * @return Collection
      *
      * @throws \Exception
      */
-    public function suggest(GeocodeQuery $query): Collection;
+    public function suggest(SuggestQuery $query): Collection;
 
     /**
      * Returns the provider's name.

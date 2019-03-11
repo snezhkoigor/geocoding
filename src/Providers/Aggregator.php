@@ -3,6 +3,7 @@
 namespace Geocode\Laravel\Providers;
 
 use Geocode\Laravel\Models\Query\GeocodeQuery;
+use Geocode\Laravel\Models\Query\SuggestQuery;
 use Geocode\Laravel\Resources\Address;
 use Illuminate\Support\Collection;
 use Geocode\Laravel\Exceptions\InvalidServerResponse;
@@ -36,10 +37,10 @@ class Aggregator implements Provider
     }
 
     /**
-     * @param GeocodeQuery $query
+     * @param SuggestQuery $query
      * @return Collection
      */
-    public function suggest(GeocodeQuery $query): Collection
+    public function suggest(SuggestQuery $query): Collection
     {
         foreach ($this->providers as $provider) {
             try {

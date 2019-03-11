@@ -6,21 +6,21 @@ namespace Geocode\Laravel\Models\Query;
 
 use Geocode\Laravel\Exceptions\InvalidArgument;
 
-class GeocodeQuery implements Query
+class SuggestQuery implements Query
 {
     const GROUP_BY_ADDRESS = 'address';
 
     const GROUP_BY_CITY = 'city';
 
     /**
-     * The address or text that should be geocoded.
+     * The address or text that should be suggested.
      *
      * @var string
      */
     private $group_by;
 
     /**
-     * The address or text that should be geocoded.
+     * The address or text that should be suggested.
      *
      * @var string
      */
@@ -34,7 +34,7 @@ class GeocodeQuery implements Query
     /**
      * @var int
      */
-    private $limit = 1;
+    private $limit = 10;
 
     /**
      * @var array
@@ -47,7 +47,7 @@ class GeocodeQuery implements Query
     private function __construct(string $text)
     {
         if (empty($text)) {
-            throw new InvalidArgument('Geocode query cannot be empty');
+            throw new InvalidArgument('Suggest query cannot be empty');
         }
 
         $this->text = $text;
@@ -57,7 +57,7 @@ class GeocodeQuery implements Query
     /**
      * @param string $text
      *
-     * @return GeocodeQuery
+     * @return SuggestQuery
      */
     public static function create(string $text): self
     {
@@ -67,7 +67,7 @@ class GeocodeQuery implements Query
     /**
      * @param string $text
      *
-     * @return GeocodeQuery
+     * @return SuggestQuery
      */
     public function withGroupBy(string $text): self
     {
@@ -80,7 +80,7 @@ class GeocodeQuery implements Query
     /**
      * @param string $text
      *
-     * @return GeocodeQuery
+     * @return SuggestQuery
      */
     public function withText(string $text): self
     {
@@ -93,7 +93,7 @@ class GeocodeQuery implements Query
     /**
      * @param string $locale
      *
-     * @return GeocodeQuery
+     * @return SuggestQuery
      */
     public function withLocale(string $locale): self
     {
@@ -104,10 +104,23 @@ class GeocodeQuery implements Query
     }
 
     /**
+     * @param int $limit
+     *
+     * @return SuggestQuery
+     */
+    public function withLimit(int $limit): self
+    {
+        $new = clone $this;
+        $new->limit = $limit;
+
+        return $new;
+    }
+
+    /**
      * @param string $name
      * @param mixed  $value
      *
-     * @return GeocodeQuery
+     * @return SuggestQuery
      */
     public function withData(string $name, $value): self
     {

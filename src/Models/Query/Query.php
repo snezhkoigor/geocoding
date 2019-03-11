@@ -21,13 +21,6 @@ interface Query
     public function withGroupBy(string $group_by);
 
     /**
-     * @param int $limit
-     *
-     * @return Query
-     */
-    public function withLimit(int $limit);
-
-    /**
      * @param string $name
      * @param mixed  $value
      *
