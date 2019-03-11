@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Geocode\Laravel;
+namespace Geocoding\Laravel;
 
-use Geocode\Laravel\Facades\Geocode;
-use Geocode\Laravel\Providers\Aggregator;
+use Geocoding\Laravel\Facades\Geocoding;
+use Geocoding\Laravel\Providers\Aggregator;
 use Illuminate\Support\ServiceProvider;
 
 class GeocodeServiceProvider extends ServiceProvider
@@ -14,7 +14,7 @@ class GeocodeServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $configPath = __DIR__ . '/../config/geocode.php';
+        $configPath = __DIR__ . '/../config/geocoding.php';
 
         $this->publishes(
             [ $configPath => $this->configPath('geocode.php') ],
@@ -26,7 +26,7 @@ class GeocodeServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->alias('Geocode', Geocode::class);
+        $this->app->alias('Geocode', Geocoding::class);
 
         $this->app->singleton(Aggregator::class, function () {
             return (new Aggregator())

@@ -1,6 +1,6 @@
 <?php
 
-namespace Geocode\Laravel\Models;
+namespace Geocoding\Laravel\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

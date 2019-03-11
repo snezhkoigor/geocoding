@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Geocode\Laravel\Resources;
+namespace Geocoding\Laravel\Resources;
 
 final class Address
 {

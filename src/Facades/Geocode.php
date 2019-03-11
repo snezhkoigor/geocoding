@@ -1,10 +1,10 @@
 <?php
 
-namespace Geocode\Laravel\Facades;
+namespace Geocoding\Laravel\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class Geocode extends Facade
+class Geocoding extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -13,6 +13,6 @@ class Geocode extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'geocode';
+        return 'geocoding';
     }
 }

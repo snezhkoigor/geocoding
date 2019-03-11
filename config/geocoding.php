@@ -1,6 +1,6 @@
 <?php
 
-use Geocode\Laravel\Providers\DaData;
+use Geocoding\Laravel\Providers\DaData;
 
 return [
     /*

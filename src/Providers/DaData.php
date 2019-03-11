@@ -2,17 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Geocode\Laravel\Providers;
+namespace Geocoding\Laravel\Providers;
 
-use Geocode\Laravel\Models\Query\GeocodeQuery;
-use Geocode\Laravel\Models\Query\Query;
-use Geocode\Laravel\Models\Query\SuggestQuery;
-use Geocode\Laravel\Models\QueryGroup;
-use Geocode\Laravel\Resources\Address;
-use Geocode\Laravel\Resources\Resource;
+use Geocoding\Laravel\Models\Query\GeocodeQuery;
+use Geocoding\Laravel\Models\Query\Query;
+use Geocoding\Laravel\Models\Query\SuggestQuery;
+use Geocoding\Laravel\Models\QueryGroup;
+use Geocoding\Laravel\Resources\Address;
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
-use Geocode\Laravel\Exceptions\InvalidServerResponse;
+use Geocoding\Laravel\Exceptions\InvalidServerResponse;
 
 final class DaData implements Provider
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Geocode\Laravel\Models\Query;
+namespace Geocoding\Laravel\Models\Query;
 
-use Geocode\Laravel\Exceptions\InvalidArgument;
-use Geocode\Laravel\Models\QueryGroup;
+use Geocoding\Laravel\Exceptions\InvalidArgument;
+use Geocoding\Laravel\Models\QueryGroup;
 
 class GeocodeQuery implements Query
 {
@@ -75,15 +75,11 @@ class GeocodeQuery implements Query
     }
 
     /**
-     * @param int $limit
-     *
+     * @param integer $limit
      * @return GeocodeQuery
      */
     public function withLimit(int $limit): self
     {
-        $new = clone $this;
-        $new->limit = 1;
-
         return $this;
     }
 

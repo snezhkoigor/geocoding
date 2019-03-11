@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Geocode\Laravel\Exceptions;
+namespace Geocoding\Laravel\Exceptions;
 
-use Geocode\Laravel\Exception\Exception;
+use Geocoding\Laravel\Exception\Exception;
 
 class InvalidArgument extends \InvalidArgumentException implements Exception
 {

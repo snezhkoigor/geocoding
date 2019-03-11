@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-namespace Geocode\Laravel\Exception;
+namespace Geocoding\Laravel\Exception;
 
 interface Exception {}
