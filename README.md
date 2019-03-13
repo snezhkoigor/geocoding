@@ -65,7 +65,33 @@ The service provider initializes the `geocoding` service, accessible via the
 app('geocoding')->geocode((\Geocoding\Laravel\Models\Query\GeocodeQuery::create('Санкт-Петербург')));
 ```
 
+Result would be:
+```
+{
+    "provided_by": "DaData.ru",
+    "latitude": 59.9391313,
+    "longitude": 30.3159004,
+    "address": "г Санкт-Петербург"
+}
+```
+
 #### Suggest and get Collection of Addresses
 ```php
 app('geocoding')->suggest((\Geocoding\Laravel\Models\Query\SuggestQuery::create('перво')));
+```
+
+Result would be:
+```
+[
+    "Нижегородская обл, г Первомайск",
+    "Кировская обл, пгт Первомайский",
+    "респ Башкортостан, Мелеузовский р-н, с/с Первомайский",
+    "респ Башкортостан, Стерлитамакский р-н, с/с Первомайский",
+    "Чувашская республика - Чувашия, Батыревский р-н, с/п Первомайское",
+    "Красноярский край, Манский р-н, с/с Первоманский",
+    "Пензенская обл, Каменский р-н, с/с Первомайский сельсовет",
+    "респ Башкортостан, Янаульский р-н, с/с Первомайский",
+    "респ Башкортостан, Благоварский р-н, с/с Первомайский",
+    "Чувашская республика - Чувашия, Алатырский р-н, с/п Первомайское"
+]
 ```
