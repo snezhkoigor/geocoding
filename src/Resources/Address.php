@@ -32,7 +32,7 @@ final class Address
      * @param null $latitude
      * @param null $longitude
      */
-    public function __constructor($provided_by, $address = null, $latitude = null, $longitude = null)
+    public function __construct($provided_by, $address = null, $latitude = null, $longitude = null)
     {
         $this->latitude = $latitude;
         $this->longitude = $longitude;
