@@ -15,6 +15,7 @@
         "php": "^7.1",
         "guzzlehttp/guzzle": "~6.0",
         "illuminate/support": "5.0 - 5.8",
+        "illuminate/database": "5.8.*",
         "ext-json": "*"
     },
     "autoload": {
