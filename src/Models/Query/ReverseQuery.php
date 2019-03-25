@@ -51,8 +51,8 @@ class ReverseQuery implements Query
      */
     private function __construct(float $latitude, float $longitude)
     {
-        if (empty($text)) {
-            throw new InvalidArgument('Geocode query cannot be empty');
+        if (empty($latitude) && empty($longitude)) {
+            throw new InvalidArgument('Reverse geocode query cannot be empty. Set latitude and longitude.');
         }
 
         $this->latitude = $latitude;
