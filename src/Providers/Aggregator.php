@@ -3,6 +3,7 @@
 namespace Geocoding\Laravel\Providers;
 
 use Geocoding\Laravel\Models\Query\GeocodeQuery;
+use Geocoding\Laravel\Models\Query\ReverseQuery;
 use Geocoding\Laravel\Models\Query\SuggestQuery;
 use Geocoding\Laravel\Resources\Address;
 use Illuminate\Support\Collection;
@@ -55,6 +56,27 @@ class Aggregator implements Provider
         }
 
         return collect([]);
+    }
+
+    /**
+     * @param ReverseQuery $query
+     * @return Address
+     */
+    public function reverse(ReverseQuery $query): ?Address
+    {
+        foreach ($this->providers as $provider) {
+            try {
+                $result = $provider->reverse($query);
+
+                if ($result instanceof Address) {
+                    return $result;
+                }
+            } catch (\Throwable $e) {
+                throw InvalidServerResponse::create('Provider "' . $provider->getName() . '" could not reverse latitude and longitude: "' . $query->getLatitude() . ',' . $query->getLongitude() . '".');
+            }
+        }
+
+        return null;
     }
 
     /**

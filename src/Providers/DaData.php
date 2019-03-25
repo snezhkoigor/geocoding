@@ -6,6 +6,7 @@ namespace Geocoding\Laravel\Providers;
 
 use Geocoding\Laravel\Models\Query\GeocodeQuery;
 use Geocoding\Laravel\Models\Query\Query;
+use Geocoding\Laravel\Models\Query\ReverseQuery;
 use Geocoding\Laravel\Models\Query\SuggestQuery;
 use Geocoding\Laravel\Models\QueryGroup;
 use Geocoding\Laravel\Resources\Address;
@@ -36,6 +37,11 @@ final class DaData implements Provider
     const GEOCODE_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest';
 
     /**
+     * Базовый url для обратного геокодирования
+     */
+    const REVERSE_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate';
+
+    /**
      * DaData constructor.
      *
      * @param $token
@@ -62,6 +68,21 @@ final class DaData implements Provider
     public function geocode(GeocodeQuery $query): ?Address
     {
         $data = $this->executeQuery($this->buildFinalUrl($query, self::GEOCODE_URL), $query);
+
+        if ($data->count() && $data->first()->getLatitude()) {
+            return $data->first();
+        }
+
+        return null;
+    }
+
+    /**
+     * @param ReverseQuery $query
+     * @return Address|null
+     */
+    public function reverse(ReverseQuery $query): ?Address
+    {
+        $data = $this->executeQuery($this->buildFinalUrl($query, self::REVERSE_URL), $query);
 
         if ($data->count() && $data->first()->getLatitude()) {
             return $data->first();
