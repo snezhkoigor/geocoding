@@ -181,12 +181,11 @@ final class DaData implements Provider
             'proxy' => $this->proxy
         ];
 
-        if ($query instanceof GeocodeQuery) {
-            $result['json']['query'] = $query->getText();
-        }
         if ($query instanceof ReverseQuery) {
             $result['json']['lat'] = $query->getLatitude();
             $result['json']['lon'] = $query->getLongitude();
+        } else {
+            $result['json']['query'] = $query->getText();
         }
 
         if ($query->getGroupBy() === QueryGroup::GROUP_BY_CITY) {
