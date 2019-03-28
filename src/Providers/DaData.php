@@ -78,19 +78,21 @@ final class DaData implements Provider
     public function batch(BatchQuery $batch): Collection
     {
         $queries = $batch->getQueries();
-
         if ($queries->count() === 0) {
             return collect([]);
         }
 
-        return collect($queries->each(function (Query $query) {
+        $result = collect([]);
+        $queries->each(function (Query $query) use ($result) {
             if ($query instanceof GeocodeQuery) {
-                return $this->geocode($query);
+                $result->push($this->geocode($query));
             }
             if ($query instanceof ReverseQuery) {
-                return $this->reverse($query);
+                $result->push($this->reverse($query));
             }
-        }))->reject(function ($value) { return empty($value); });
+        });
+
+        return $result->reject(function ($value) { return empty($value); });
     }
 
     /**
