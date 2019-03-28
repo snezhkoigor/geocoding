@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Geocoding\Laravel\Providers;
 
+use Geocoding\Laravel\Models\Query\BatchQuery;
 use Geocoding\Laravel\Models\Query\GeocodeQuery;
 use Geocoding\Laravel\Models\Query\ReverseQuery;
 use Geocoding\Laravel\Models\Query\SuggestQuery;
@@ -38,6 +39,15 @@ interface Provider
      * @throws \Exception
      */
     public function suggest(SuggestQuery $query): Collection;
+
+    /**
+     * @param BatchQuery $query
+     *
+     * @return Collection
+     *
+     * @throws \Exception
+     */
+    public function batch(BatchQuery $query): Collection;
 
     /**
      * Returns the provider's name.

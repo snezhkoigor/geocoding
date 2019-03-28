@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Geocoding\Laravel\Providers;
 
+use Geocoding\Laravel\Models\Query\BatchQuery;
 use Geocoding\Laravel\Models\Query\GeocodeQuery;
 use Geocoding\Laravel\Models\Query\Query;
 use Geocoding\Laravel\Models\Query\ReverseQuery;
@@ -27,6 +28,11 @@ final class DaData implements Provider
     protected $proxy;
 
     /**
+     * @var mixed
+     */
+    protected $proxy_port;
+
+    /**
      * Базовый url для автозаполнения
      */
     const SUGGEST_URL = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest';
@@ -46,11 +52,13 @@ final class DaData implements Provider
      *
      * @param $token
      * @param $proxy
+     * @param $proxy_port
      */
-    public function __construct($token, $proxy = null)
+    public function __construct($token, $proxy = null, $proxy_port = 80)
     {
         $this->token = $token;
         $this->proxy = $proxy;
+        $this->proxy_port = $proxy_port;
     }
 
     /**
@@ -59,6 +67,30 @@ final class DaData implements Provider
     public function getName(): string
     {
         return 'DaData.ru';
+    }
+
+    /**
+     * All empty results will be rejected
+     *
+     * @param BatchQuery $batch
+     * @return Collection
+     */
+    public function batch(BatchQuery $batch): Collection
+    {
+        $queries = $batch->getQueries();
+
+        if ($queries->count() === 0) {
+            return collect([]);
+        }
+
+        return collect($queries->each(function (Query $query) {
+            if ($query instanceof GeocodeQuery) {
+                return $this->geocode($query);
+            }
+            if ($query instanceof ReverseQuery) {
+                return $this->reverse($query);
+            }
+        }))->reject(function ($value) { return empty($value); });
     }
 
     /**
@@ -178,7 +210,7 @@ final class DaData implements Provider
             'json' => [
                 'count' => $query->getLimit()
             ],
-            'proxy' => $this->proxy
+            'proxy' => !empty($this->proxy) ? $this->proxy . ':' . $this->proxy_port : null
         ];
 
         if ($query instanceof ReverseQuery) {

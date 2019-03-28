@@ -2,6 +2,7 @@
 
 namespace Geocoding\Laravel\Providers;
 
+use Geocoding\Laravel\Models\Query\BatchQuery;
 use Geocoding\Laravel\Models\Query\GeocodeQuery;
 use Geocoding\Laravel\Models\Query\ReverseQuery;
 use Geocoding\Laravel\Models\Query\SuggestQuery;
@@ -15,6 +16,27 @@ class Aggregator implements Provider
      * @var Provider[]
      */
     private $providers = [];
+
+    /**
+     * @param BatchQuery $batch_query
+     * @return Collection
+     */
+    public function batch(BatchQuery $batch_query): Collection
+    {
+        foreach ($this->providers as $provider) {
+            try {
+                $result = $provider->batch($batch_query);
+
+                if ($result->count()) {
+                    return $result;
+                }
+            } catch (\Throwable $e) {
+                throw InvalidServerResponse::create('Provider "' . $provider->getName() . '" could not batch addresses: "' . $batch_query->__toString() . '".');
+            }
+        }
+
+        return collect([]);
+    }
 
     /**
      * @param GeocodeQuery $query
