@@ -2,9 +2,7 @@
 
 namespace Geocoding\Laravel\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class QueryGroup extends Model
+final class QueryGroup
 {
     const GROUP_BY_ADDRESS = 'address';
 
